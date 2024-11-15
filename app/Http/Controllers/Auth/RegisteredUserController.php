@@ -46,16 +46,16 @@ class RegisteredUserController extends Controller
     
         $data = [
             'mobile_phone' => $user->phone,
-            'message' => 'Tasdiqlash kodi: ' . $code,
+            'message' => 'Bu Eskiz dan test',
             'from' => '4546',
             'callback_url' => route('dashboard'), 
         ];
     
-        $token = '';
+        $token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzQyNzI0MjIsImlhdCI6MTczMTY4MDQyMiwicm9sZSI6InRlc3QiLCJzaWduIjoiNmFkMTUwMjJmYTcwNTM0OTU1MGE1NzQ5MWFiNDQ5ZjI2NGVhMWNmZWQ5YTgzYWNhZjM1MGVlZjdhMmE2MDhjMyIsInN1YiI6Ijg5MjUifQ.lyHF92FXrI7yAH2wGYNq6qfAZT8klg9NhRHk0GUvvFs';
     
         $response = Http::withToken($token)->post('https://notify.eskiz.uz/api/message/sms/send', $data);
     
-        if (!($response->successful())) {
+        if ($response->successful()) {
             $user->verification_code = $code;
             $user->save();
             return redirect(route('verification.page'));

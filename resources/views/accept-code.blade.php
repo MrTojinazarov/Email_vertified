@@ -81,6 +81,7 @@
 <body>
     <div class="container">
         <h2>Phone Tasdiqlash</h2>
+        <h3>Code: {{Auth::user()->verification_code}}</h3>
         <form action="{{ route('verification.code') }}" method="POST">
             @csrf
             <label for="verification_code">Tasdiqlash Kodingiz:</label>
