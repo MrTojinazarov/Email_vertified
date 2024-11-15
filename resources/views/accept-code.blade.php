@@ -80,7 +80,7 @@
 </head>
 <body>
     <div class="container">
-        <h2>Email Tasdiqlash</h2>
+        <h2>Phone Tasdiqlash</h2>
         <form action="{{ route('verification.code') }}" method="POST">
             @csrf
             <label for="verification_code">Tasdiqlash Kodingiz:</label>

@@ -35,14 +35,14 @@
                     <tr>
                         <th>#</th>
                         <th>Name</th>
-                        <th>Email</th>
+                        <th>Phone</th>
                         <th>Handle</th>
                     </tr>
                     @foreach ($users as $user)
                         <tr>
                             <td>{{ $user->id }}</td>
                             <td>{{ $user->name }}</td>
-                            <td>{{ $user->email }}</td>
+                            <td>{{ $user->phone }}</td>
                             <td><!-- Button trigger modal -->
                                 <button type="button" class="btn btn-primary" data-toggle="modal"
                                     data-target="#exampleModal{{$user->id}}">

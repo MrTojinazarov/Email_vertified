@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Http;
 
 class TestController extends Controller
 {
@@ -25,7 +26,10 @@ class TestController extends Controller
             'description' => 'required',
             'text' => 'required'
         ]);
-        Mail::to($user->email)->send(new SendMessage($data));
+        $token = '';
+    
+        $response = Http::withToken($token)->post('https://notify.eskiz.uz/api/message/sms/send', $data);
+
         return back();
     }
     public function showVerificationPage()
@@ -39,13 +43,13 @@ class TestController extends Controller
         $request->validate(['verification_code' => 'required']);
     
         $user = Auth::user();
-    
-        if ($user->verification_code == $request->verification_code) {
+        
+        if($user->verification_code == $request->verification_code){
             $user->is_verified = true;
             $user->verification_code = null;
             $user->email_verified_at = Carbon::now();
             $user->save();
-    
+            
             return redirect()->route('dashboard')->with('success', 'Email muvaffaqiyatli tasdiqlandi!');
         } else {
             return back()->withErrors(['verification_code' => 'Kod noto\'g\'ri, qayta kiriting.']);
